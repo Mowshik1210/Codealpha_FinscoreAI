@@ -1,0 +1,464 @@
+{% extends "base.html" %}
+
+{% block title %}Credit Assessment — FinScoreAI{% endblock %}
+
+{% block content %}
+
+<section class="predict-section py-5 pt-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <div class="section-badge mb-3">
+                <i class="fas fa-brain me-2"></i>AI Credit Assessment
+            </div>
+            <h1 class="section-title">Credit Risk Assessment Form</h1>
+            <p class="section-subtitle">Complete all sections for an accurate AI-powered credit evaluation</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps mb-5" data-aos="fade-up">
+            <div class="progress-step active" id="pstep-1">
+                <div class="ps-circle"><i class="fas fa-user"></i></div>
+                <div class="ps-label">Personal Info</div>
+            </div>
+            <div class="progress-step-line" id="pline-1"></div>
+            <div class="progress-step" id="pstep-2">
+                <div class="ps-circle"><i class="fas fa-briefcase"></i></div>
+                <div class="ps-label">Employment</div>
+            </div>
+            <div class="progress-step-line" id="pline-2"></div>
+            <div class="progress-step" id="pstep-3">
+                <div class="ps-circle"><i class="fas fa-dollar-sign"></i></div>
+                <div class="ps-label">Loan Details</div>
+            </div>
+            <div class="progress-step-line" id="pline-3"></div>
+            <div class="progress-step" id="pstep-4">
+                <div class="ps-circle"><i class="fas fa-credit-card"></i></div>
+                <div class="ps-label">Credit History</div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form action="{{ url_for('predict') }}" method="POST" id="assessmentForm" novalidate>
+
+            <!-- ==================== STEP 1: PERSONAL INFO ==================== -->
+            <div class="form-step" id="step1">
+                <div class="form-card" data-aos="fade-up">
+                    <div class="form-section-header">
+                        <div class="fsh-icon"><i class="fas fa-user"></i></div>
+                        <div>
+                            <h4 class="fsh-title">Personal Information</h4>
+                            <p class="fsh-subtitle">Basic applicant details</p>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-calendar-alt me-2 text-accent"></i>Age
+                            </label>
+                            <input type="number" name="person_age" class="form-control-custom" placeholder="e.g. 32" min="18" max="100" required>
+                            <div class="invalid-feedback-custom">Age must be between 18 and 100.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-venus-mars me-2 text-accent"></i>Gender
+                            </label>
+                            <select name="person_gender" class="form-control-custom" required>
+                                <option value="" disabled selected>Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <div class="invalid-feedback-custom">Please select a gender.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-graduation-cap me-2 text-accent"></i>Education Level
+                            </label>
+                            <select name="person_education" class="form-control-custom" required>
+                                <option value="" disabled selected>Select education</option>
+                                <option value="High School">High School</option>
+                                <option value="Associate">Associate</option>
+                                <option value="Bachelor">Bachelor</option>
+                                <option value="Master">Master</option>
+                                <option value="Doctorate">Doctorate</option>
+                            </select>
+                            <div class="invalid-feedback-custom">Please select education level.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-dollar-sign me-2 text-accent"></i>Annual Income ($)
+                            </label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">$</span>
+                                <input type="number" name="person_income" class="form-control-custom ps-icon" placeholder="e.g. 75000" min="0" required>
+                            </div>
+                            <div class="invalid-feedback-custom">Please enter a valid income.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-nav mt-4">
+                        <div></div>
+                        <button type="button" class="btn-form-next" onclick="nextStep(1)">
+                            Next Step <i class="fas fa-chevron-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== STEP 2: EMPLOYMENT ==================== -->
+            <div class="form-step d-none" id="step2">
+                <div class="form-card" data-aos="fade-up">
+                    <div class="form-section-header">
+                        <div class="fsh-icon"><i class="fas fa-briefcase"></i></div>
+                        <div>
+                            <h4 class="fsh-title">Employment & Housing</h4>
+                            <p class="fsh-subtitle">Work experience and housing status</p>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-briefcase me-2 text-accent"></i>Employment Experience (Years)
+                            </label>
+                            <input type="number" name="person_emp_exp" class="form-control-custom" placeholder="e.g. 5" min="0" required>
+                            <div class="invalid-feedback-custom">Please enter employment experience.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-home me-2 text-accent"></i>Home Ownership
+                            </label>
+                            <select name="person_home_ownership" class="form-control-custom" required>
+                                <option value="" disabled selected>Select ownership type</option>
+                                <option value="RENT">Rent</option>
+                                <option value="OWN">Own</option>
+                                <option value="MORTGAGE">Mortgage</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <div class="invalid-feedback-custom">Please select home ownership.</div>
+                        </div>
+                    </div>
+
+                    <!-- Info note -->
+                    <div class="form-info-note mt-4">
+                        <i class="fas fa-info-circle text-accent me-2"></i>
+                        <span><strong>Note:</strong> Employment experience and housing stability are key indicators in credit risk assessment. Longer employment history generally improves creditworthiness.</span>
+                    </div>
+
+                    <div class="form-nav mt-4">
+                        <button type="button" class="btn-form-back" onclick="prevStep(2)">
+                            <i class="fas fa-chevron-left me-2"></i>Back
+                        </button>
+                        <button type="button" class="btn-form-next" onclick="nextStep(2)">
+                            Next Step <i class="fas fa-chevron-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== STEP 3: LOAN DETAILS ==================== -->
+            <div class="form-step d-none" id="step3">
+                <div class="form-card" data-aos="fade-up">
+                    <div class="form-section-header">
+                        <div class="fsh-icon"><i class="fas fa-dollar-sign"></i></div>
+                        <div>
+                            <h4 class="fsh-title">Loan Details</h4>
+                            <p class="fsh-subtitle">Information about the requested loan</p>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-dollar-sign me-2 text-accent"></i>Loan Amount ($)
+                            </label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">$</span>
+                                <input type="number" name="loan_amnt" class="form-control-custom ps-icon" placeholder="e.g. 15000" min="0" required>
+                            </div>
+                            <div class="invalid-feedback-custom">Please enter a valid loan amount.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-tags me-2 text-accent"></i>Loan Intent / Purpose
+                            </label>
+                            <select name="loan_intent" class="form-control-custom" required>
+                                <option value="" disabled selected>Select loan purpose</option>
+                                <option value="PERSONAL">Personal</option>
+                                <option value="EDUCATION">Education</option>
+                                <option value="MEDICAL">Medical</option>
+                                <option value="VENTURE">Venture / Business</option>
+                                <option value="HOMEIMPROVEMENT">Home Improvement</option>
+                                <option value="DEBTCONSOLIDATION">Debt Consolidation</option>
+                            </select>
+                            <div class="invalid-feedback-custom">Please select loan purpose.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-percent me-2 text-accent"></i>Interest Rate (%)
+                            </label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">%</span>
+                                <input type="number" name="loan_int_rate" class="form-control-custom ps-icon" placeholder="e.g. 11.5" step="0.01" min="0" required>
+                            </div>
+                            <div class="invalid-feedback-custom">Please enter interest rate.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-chart-pie me-2 text-accent"></i>Loan as % of Income (%)
+                            </label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">%</span>
+                                <input type="number" name="loan_percent_income" class="form-control-custom ps-icon" placeholder="e.g. 20.5" step="0.01" min="0" max="100" required>
+                            </div>
+                            <p class="form-hint">Loan amount as a percentage of annual income</p>
+                            <div class="invalid-feedback-custom">Please enter loan percent of income.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-nav mt-4">
+                        <button type="button" class="btn-form-back" onclick="prevStep(3)">
+                            <i class="fas fa-chevron-left me-2"></i>Back
+                        </button>
+                        <button type="button" class="btn-form-next" onclick="nextStep(3)">
+                            Next Step <i class="fas fa-chevron-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== STEP 4: CREDIT HISTORY ==================== -->
+            <div class="form-step d-none" id="step4">
+                <div class="form-card" data-aos="fade-up">
+                    <div class="form-section-header">
+                        <div class="fsh-icon"><i class="fas fa-credit-card"></i></div>
+                        <div>
+                            <h4 class="fsh-title">Credit History</h4>
+                            <p class="fsh-subtitle">Your credit background and history</p>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-history me-2 text-accent"></i>Credit History Length (Years)
+                            </label>
+                            <input type="number" name="cb_person_cred_hist_length" class="form-control-custom" placeholder="e.g. 8" step="0.5" min="0" required>
+                            <div class="invalid-feedback-custom">Please enter credit history length.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom">
+                                <i class="fas fa-star me-2 text-accent"></i>Credit Score (300–850)
+                            </label>
+                            <input type="number" name="credit_score" class="form-control-custom" id="creditScoreInput" placeholder="300 – 850" min="300" max="850" required oninput="updateCreditScoreBar(this.value)">
+                            <div class="credit-score-bar-track mt-2">
+                                <div class="credit-score-bar-fill" id="creditScoreBar" style="width: 0%"></div>
+                            </div>
+                            <div class="credit-score-label" id="creditScoreLabel"></div>
+                            <div class="invalid-feedback-custom">Credit score must be between 300 and 850.</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label-custom">
+                                <i class="fas fa-exclamation-triangle me-2 text-accent"></i>Previous Loan Defaults on File
+                            </label>
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-6">
+                                    <label class="default-option-card" id="default-yes">
+                                        <input type="radio" name="previous_loan_defaults_on_file" value="Yes" class="d-none" required>
+                                        <span class="default-option-icon">⚠️</span>
+                                        <span class="default-option-text">Yes — Has Prior Defaults</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="default-option-card" id="default-no">
+                                        <input type="radio" name="previous_loan_defaults_on_file" value="No" class="d-none">
+                                        <span class="default-option-icon">✅</span>
+                                        <span class="default-option-text">No — Clean Record</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback-custom">Please select default history.</div>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="form-summary mt-4" id="formSummary">
+                        <h6 class="summary-title">Assessment Summary</h6>
+                        <div class="row g-2" id="summaryGrid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="form-nav mt-4">
+                        <button type="button" class="btn-form-back" onclick="prevStep(4)">
+                            <i class="fas fa-chevron-left me-2"></i>Back
+                        </button>
+                        <button type="submit" class="btn-form-submit" id="submitBtn">
+                            <i class="fas fa-brain me-2"></i>Run AI Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-card">
+        <div class="loading-icon">
+            <i class="fas fa-brain"></i>
+        </div>
+        <h4 class="loading-title">AI Analyzing Data</h4>
+        <p class="loading-subtitle">Processing your financial profile through our Random Forest model...</p>
+        <div class="loading-steps" id="loadingSteps">
+            <div class="loading-step" id="ls1">⏳ Loading model...</div>
+            <div class="loading-step" id="ls2">⏳ Running preprocessor...</div>
+            <div class="loading-step" id="ls3">⏳ Generating prediction...</div>
+        </div>
+        <div class="loading-bar-track mt-3">
+            <div class="loading-bar-fill" id="loadingBar"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ============================================================
+// Multi-step Form Logic
+// ============================================================
+let currentStep = 1;
+const totalSteps = 4;
+
+function updateProgressSteps(step) {
+    for (let i = 1; i <= totalSteps; i++) {
+        const circle = document.getElementById(`pstep-${i}`);
+        if (i < step) {
+            circle.classList.remove('active');
+            circle.classList.add('completed');
+        } else if (i === step) {
+            circle.classList.add('active');
+            circle.classList.remove('completed');
+        } else {
+            circle.classList.remove('active', 'completed');
+        }
+        if (i < totalSteps) {
+            const line = document.getElementById(`pline-${i}`);
+            if (i < step) line.classList.add('active');
+            else line.classList.remove('active');
+        }
+    }
+}
+
+function showStep(n) {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.add('d-none'));
+    document.getElementById(`step${n}`).classList.remove('d-none');
+    updateProgressSteps(n);
+    currentStep = n;
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+
+function validateStep(step) {
+    const stepEl = document.getElementById(`step${step}`);
+    const inputs = stepEl.querySelectorAll('[required]');
+    let valid = true;
+    inputs.forEach(input => {
+        if (!input.value || (input.type === 'number' && isNaN(parseFloat(input.value)))) {
+            input.classList.add('is-invalid');
+            valid = false;
+        } else {
+            input.classList.remove('is-invalid');
+        }
+    });
+    // Check radios for step 4
+    if (step === 4) {
+        const radios = document.querySelectorAll('input[name="previous_loan_defaults_on_file"]');
+        const checked = Array.from(radios).some(r => r.checked);
+        if (!checked) valid = false;
+    }
+    return valid;
+}
+
+function nextStep(from) {
+    if (validateStep(from)) showStep(from + 1);
+    if (from + 1 === 4) populateSummary();
+}
+
+function prevStep(from) { showStep(from - 1); }
+
+// Radio card selection
+document.querySelectorAll('input[name="previous_loan_defaults_on_file"]').forEach(r => {
+    r.closest('label')?.addEventListener('click', function() {
+        document.querySelectorAll('.default-option-card').forEach(c => c.classList.remove('selected-yes', 'selected-no'));
+        const val = r.value;
+        this.classList.add(val === 'Yes' ? 'selected-yes' : 'selected-no');
+        r.checked = true;
+    });
+});
+
+// Credit Score Bar
+function updateCreditScoreBar(val) {
+    const score = parseInt(val);
+    const bar = document.getElementById('creditScoreBar');
+    const label = document.getElementById('creditScoreLabel');
+    if (isNaN(score) || score < 300) return;
+    const pct = Math.min(((score - 300) / 550) * 100, 100);
+    bar.style.width = pct + '%';
+    if (score >= 750) {
+        bar.className = 'credit-score-bar-fill csb-excellent';
+        label.textContent = '✨ Excellent Credit';
+        label.className = 'credit-score-label text-success-color';
+    } else if (score >= 670) {
+        bar.className = 'credit-score-bar-fill csb-good';
+        label.textContent = '👍 Good Credit';
+        label.className = 'credit-score-label text-warning';
+    } else {
+        bar.className = 'credit-score-bar-fill csb-poor';
+        label.textContent = '⚠️ Poor Credit';
+        label.className = 'credit-score-label text-danger-color';
+    }
+}
+
+// Populate summary
+function populateSummary() {
+    const form = document.getElementById('assessmentForm');
+    const grid = document.getElementById('summaryGrid');
+    const fields = [
+        ['Age', form.person_age?.value || '—'],
+        ['Income', form.person_income?.value ? `$${parseInt(form.person_income.value).toLocaleString()}` : '—'],
+        ['Loan Amount', form.loan_amnt?.value ? `$${parseInt(form.loan_amnt.value).toLocaleString()}` : '—'],
+        ['Credit Score', form.credit_score?.value || '—'],
+        ['Employment', form.person_emp_exp?.value ? `${form.person_emp_exp.value} yrs` : '—'],
+        ['Defaults', document.querySelector('input[name="previous_loan_defaults_on_file"]:checked')?.value || '—'],
+    ];
+    grid.innerHTML = fields.map(([l, v]) => `
+        <div class="col-md-4 col-6">
+            <div class="summary-item">
+                <div class="summary-item-label">${l}</div>
+                <div class="summary-item-value">${v}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Form Submit + Loading
+document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+    if (!validateStep(4)) { e.preventDefault(); return; }
+    document.getElementById('loadingOverlay').classList.add('active');
+    const steps = [document.getElementById('ls1'), document.getElementById('ls2'), document.getElementById('ls3')];
+    const bar = document.getElementById('loadingBar');
+    let progress = 0;
+    steps.forEach((s, i) => {
+        setTimeout(() => {
+            s.textContent = s.textContent.replace('⏳', '✓');
+            s.classList.add('done');
+            progress = (i + 1) / 3 * 100;
+            bar.style.width = progress + '%';
+        }, i * 700);
+    });
+});
+</script>
+{% endblock %}

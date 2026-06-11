@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FinScoreAI — Intelligent Credit Scoring{% endblock %}</title>
+
+    <link rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/logo.png') }}">
+      
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/darkmode.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+    <div class="container">
+        <!-- Brand Logo -->
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('home') }}">
+            <div class="brand-icon">
+                <i class="fas fa-brain"></i>
+                <span class="brand-dot"></span>
+            </div>
+            <span class="brand-text">
+                <span class="brand-fin">FinScore</span><span class="brand-ai">AI</span>
+            </span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars text-accent"></i>
+        </button>
+
+        <!-- Nav Links -->
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav mx-auto gap-1">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">
+                        <i class="fas fa-home me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'predict' %}active{% endif %}" href="{{ url_for('predict') }}">
+                        <i class="fas fa-chart-line me-1"></i> Assessment
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">
+                        <i class="fas fa-info-circle me-1"></i> About
+                    </a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-2">
+                <!-- Theme Toggle -->
+                <button class="btn-theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+                    <i class="fas fa-sun" id="themeIcon"></i>
+                </button>
+                <!-- CTA Button -->
+                <a href="{{ url_for('predict') }}" class="btn-cta">
+                    <i class="fas fa-rocket me-2"></i>Start Assessment
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================================================
+     FLASH MESSAGES
+     ============================================================ -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show flash-alert" role="alert">
+                    <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' }} me-2"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="row g-4 py-5">
+            <!-- Brand Column -->
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <div class="brand-icon brand-icon-sm">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <span class="brand-text">
+                        <span class="brand-fin">FinScore</span><span class="brand-ai">AI</span>
+                    </span>
+                </div>
+                <p class="footer-desc">
+                    An AI-powered Credit Scoring and Financial Risk Assessment System that helps financial institutions evaluate creditworthiness using advanced machine learning algorithms.
+                </p>
+                <div class="d-flex align-items-center gap-2 mt-3">
+                    <div class="status-dot"></div>
+                    <span class="status-text">System Operational</span>
+                </div>
+            </div>
+
+            <!-- Links Column -->
+            <div class="col-lg-2 col-md-6 col-6">
+                <h6 class="footer-heading">Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('home') }}"><i class="fas fa-chevron-right me-1"></i>Home</a></li>
+                    <li><a href="{{ url_for('predict') }}"><i class="fas fa-chevron-right me-1"></i>Assessment</a></li>
+                    <li><a href="{{ url_for('about') }}"><i class="fas fa-chevron-right me-1"></i>About</a></li>
+                </ul>
+            </div>
+
+            <!-- Tech Column -->
+            <div class="col-lg-3 col-md-6 col-6">
+                <h6 class="footer-heading">Technology</h6>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right me-1"></i>Random Forest ML</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right me-1"></i>Flask Framework</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right me-1"></i>scikit-learn</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right me-1"></i>PDF Reports</a></li>
+                </ul>
+            </div>
+
+            <!-- Creator Column -->
+            <div class="col-lg-3 col-md-6">
+                <h6 class="footer-heading">Creator</h6>
+                <p class="footer-creator-name">Mowshik G</p>
+                <p class="footer-creator-role mb-3">CSE(AI & ML) Student at KPRIET</p>
+                <div class="d-flex gap-2">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharshanmowshik@gmail.com" class="social-icon social-gmail" title="Gmail">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://github.com/Mowshik1210" target="_blank" rel="noopener noreferrer" class="social-icon social-github" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/mowshikk-g" target="_blank" rel="noopener noreferrer" class="social-icon social-linkedin" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="footer-copy">© 2024 FinScoreAI. Built for financial applications.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="footer-made-by">
+                        Designed & Developed with <i class="fas fa-heart text-danger"></i> by
+                        <strong>Mowshik G</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

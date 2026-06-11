@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Error — FinScoreAI{% endblock %}
+
+{% block content %}
+<section class="error-section pt-page">
+    <div class="container text-center py-5">
+        <div data-aos="fade-up">
+            <div class="error-code-wrap">
+                <div class="error-code gradient-text">{{ error_code | default('500') }}</div>
+                <div class="error-code-glow"></div>
+            </div>
+            <h2 class="error-title mt-4">
+                {% if error_code == 404 %}Page Not Found
+                {% elif error_code == 403 %}Access Forbidden
+                {% else %}Something Went Wrong{% endif %}
+            </h2>
+            <p class="error-desc">
+                {% if error_code == 404 %}The page you're looking for doesn't exist or has been moved.
+                {% elif error_code == 403 %}You don't have permission to access this resource.
+                {% else %}An unexpected error occurred. Please try again or contact support.{% endif %}
+            </p>
+            <div class="d-flex gap-3 justify-content-center mt-4">
+                <a href="{{ url_for('home') }}" class="btn-hero-primary">
+                    <i class="fas fa-home me-2"></i>Back to Home
+                </a>
+                <a href="{{ url_for('predict') }}" class="btn-hero-secondary">
+                    <i class="fas fa-chart-line me-2"></i>Try Assessment
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

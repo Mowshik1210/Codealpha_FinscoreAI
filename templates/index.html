@@ -1,0 +1,465 @@
+{% extends "base.html" %}
+
+{% block title %}FinScoreAI — Intelligent Credit Scoring & Risk Assessment{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO SECTION
+     ============================================================ -->
+<section class="hero-section" id="hero">
+    <!-- Animated background grid -->
+    <div class="hero-grid-overlay"></div>
+    <!-- Glowing orbs -->
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+
+    <div class="container">
+        <div class="row align-items-center min-vh-100 py-5">
+            <!-- Left: Content -->
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="hero-badge mb-3">
+                    <i class="fas fa-circle-dot pulse-dot me-2"></i>
+                    AI-Powered Credit Intelligence
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="text-white">Fin</span><span class="gradient-text">Score</span><span class="text-white">AI</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Intelligent Credit Scoring & Risk Assessment System
+                </p>
+
+                <p class="hero-description">
+                    FinScoreAI leverages Random Forest machine learning to help financial institutions evaluate
+                    loan applicant creditworthiness with precision. Our system analyzes 13 financial parameters
+                    to deliver instant, data-driven credit risk assessments — reducing default risk and enabling
+                    smarter lending decisions.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="{{ url_for('predict') }}" class="btn-hero-primary">
+                        <i class="fas fa-rocket me-2"></i>Start Assessment
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                    <a href="{{ url_for('about') }}" class="btn-hero-secondary">
+                        Learn More
+                        <i class="fas fa-chevron-right ms-2"></i>
+                    </a>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="hero-quick-stats mt-5">
+                    <div class="quick-stat">
+                        <div class="quick-stat-value">93.47%</div>
+                        <div class="quick-stat-label">Model Accuracy</div>
+                    </div>
+                    <div class="quick-stat-divider"></div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-value">97.34%</div>
+                        <div class="quick-stat-label">ROC-AUC Score</div>
+                    </div>
+                    <div class="quick-stat-divider"></div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-value">13+</div>
+                        <div class="quick-stat-label">Parameters</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Dashboard Preview Card -->
+            <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left" data-aos-delay="200">
+                <div class="hero-dashboard-card">
+                    <!-- Card Header -->
+                    <div class="hdc-header">
+                        <div>
+                            <div class="hdc-title">Model Performance</div>
+                            <div class="hdc-subtitle">Live metrics dashboard</div>
+                        </div>
+                        <div class="hdc-status">
+                            <div class="status-dot"></div>
+                            <span>Active</span>
+                        </div>
+                    </div>
+
+                    <!-- Radar Chart Placeholder -->
+                    <div class="hdc-chart-wrapper">
+                        <canvas id="heroRadarChart" width="300" height="220"></canvas>
+                    </div>
+
+                    <!-- Mini metric cards -->
+                    <div class="row g-2 mt-2">
+                        <div class="col-6">
+                            <div class="mini-metric-card">
+                                <div class="mini-metric-value text-accent">{{ metrics.accuracy }}%</div>
+                                <div class="mini-metric-label">Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mini-metric-card">
+                                <div class="mini-metric-value text-success-color">{{ metrics.roc_auc }}%</div>
+                                <div class="mini-metric-label">ROC-AUC</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mini-metric-card">
+                                <div class="mini-metric-value text-purple">{{ metrics.precision }}%</div>
+                                <div class="mini-metric-label">Precision</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mini-metric-card">
+                                <div class="mini-metric-value text-pink">{{ metrics.f1_score }}%</div>
+                                <div class="mini-metric-label">F1 Score</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating badge -->
+                    <div class="hero-floating-badge">
+                        <i class="fas fa-check me-1"></i> Loan Risk Detection
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     STATISTICS SECTION
+     ============================================================ -->
+<section class="stats-section py-5" id="stats">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Model Performance Metrics</h2>
+            <p class="section-subtitle">Evaluated on a held-out test set — 20% of the dataset</p>
+        </div>
+
+        <!-- Metric Cards Row -->
+        <div class="row g-4 mb-5">
+            <!-- Accuracy -->
+            <div class="col-lg col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="metric-card">
+                    <div class="metric-card-glow metric-glow-accent"></div>
+                    <div class="metric-card-header">
+                        <div class="metric-icon metric-icon-accent">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <span class="metric-live-badge">Live</span>
+                    </div>
+                    <div class="metric-value text-accent" data-target="{{ metrics.accuracy }}">0%</div>
+                    <div class="metric-label">Accuracy</div>
+                    <div class="metric-progress-bar">
+                        <div class="metric-progress-fill bg-accent" data-width="{{ metrics.accuracy }}"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Precision -->
+            <div class="col-lg col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="metric-card">
+                    <div class="metric-card-glow metric-glow-purple"></div>
+                    <div class="metric-card-header">
+                        <div class="metric-icon metric-icon-purple">
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                        <span class="metric-live-badge">Live</span>
+                    </div>
+                    <div class="metric-value text-purple" data-target="{{ metrics.precision }}">0%</div>
+                    <div class="metric-label">Precision</div>
+                    <div class="metric-progress-bar">
+                        <div class="metric-progress-fill bg-purple" data-width="{{ metrics.precision }}"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recall -->
+            <div class="col-lg col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="metric-card">
+                    <div class="metric-card-glow metric-glow-warning"></div>
+                    <div class="metric-card-header">
+                        <div class="metric-icon metric-icon-warning">
+                            <i class="fas fa-activity"></i>
+                        </div>
+                        <span class="metric-live-badge">Live</span>
+                    </div>
+                    <div class="metric-value text-warning" data-target="{{ metrics.recall }}">0%</div>
+                    <div class="metric-label">Recall</div>
+                    <div class="metric-progress-bar">
+                        <div class="metric-progress-fill bg-warning" data-width="{{ metrics.recall }}"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- F1 Score -->
+            <div class="col-lg col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="metric-card">
+                    <div class="metric-card-glow metric-glow-pink"></div>
+                    <div class="metric-card-header">
+                        <div class="metric-icon metric-icon-pink">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="metric-live-badge">Live</span>
+                    </div>
+                    <div class="metric-value text-pink" data-target="{{ metrics.f1_score }}">0%</div>
+                    <div class="metric-label">F1 Score</div>
+                    <div class="metric-progress-bar">
+                        <div class="metric-progress-fill bg-pink" data-width="{{ metrics.f1_score }}"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROC AUC -->
+            <div class="col-lg col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="metric-card">
+                    <div class="metric-card-glow metric-glow-success"></div>
+                    <div class="metric-card-header">
+                        <div class="metric-icon metric-icon-success">
+                            <i class="fas fa-trending-up"></i>
+                        </div>
+                        <span class="metric-live-badge">Live</span>
+                    </div>
+                    <div class="metric-value text-success-color" data-target="{{ metrics.roc_auc }}">0%</div>
+                    <div class="metric-label">ROC-AUC</div>
+                    <div class="metric-progress-bar">
+                        <div class="metric-progress-fill bg-success-color" data-width="{{ metrics.roc_auc }}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trend Chart -->
+        <div class="chart-container-card" data-aos="fade-up">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h5 class="chart-card-title">Assessment Trend</h5>
+                    <p class="chart-card-subtitle">Approval vs Rejection rate overview</p>
+                </div>
+                <div class="d-flex gap-3">
+                    <span class="chart-legend"><span class="chart-legend-dot bg-success-color"></span>Approvals</span>
+                    <span class="chart-legend"><span class="chart-legend-dot bg-danger-color"></span>Rejections</span>
+                </div>
+            </div>
+            <canvas id="trendChart" height="80"></canvas>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     FEATURES SECTION
+     ============================================================ -->
+<section class="features-section py-5" id="features">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Powerful Features</h2>
+            <p class="section-subtitle">Everything you need for comprehensive credit risk assessment in one intelligent platform</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="feature-card feature-card-accent">
+                    <div class="feature-icon feature-icon-accent"><i class="fas fa-brain"></i></div>
+                    <h4 class="feature-title">AI-Powered Analysis</h4>
+                    <p class="feature-desc">Random Forest ML model trained on thousands of credit applications for superior accuracy and reliability.</p>
+                </div>
+            </div>
+            <!-- Feature 2 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-card feature-card-danger">
+                    <div class="feature-icon feature-icon-danger"><i class="fas fa-shield-halved"></i></div>
+                    <h4 class="feature-title">Credit Risk Detection</h4>
+                    <p class="feature-desc">Advanced risk profiling identifies high-risk borrowers before loan approval — protecting lenders and borrowers.</p>
+                </div>
+            </div>
+            <!-- Feature 3 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card feature-card-warning">
+                    <div class="feature-icon feature-icon-warning"><i class="fas fa-bolt"></i></div>
+                    <h4 class="feature-title">Fast Prediction</h4>
+                    <p class="feature-desc">Real-time assessments in milliseconds — no waiting for manual reviews or paper-based evaluations.</p>
+                </div>
+            </div>
+            <!-- Feature 4 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-card feature-card-success">
+                    <div class="feature-icon feature-icon-success"><i class="fas fa-chart-pie"></i></div>
+                    <h4 class="feature-title">Financial Insights</h4>
+                    <p class="feature-desc">Detailed probability scores and financial health indicators for every applicant analyzed.</p>
+                </div>
+            </div>
+            <!-- Feature 5 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-card feature-card-purple">
+                    <div class="feature-icon feature-icon-purple"><i class="fas fa-lock"></i></div>
+                    <h4 class="feature-title">Secure Processing</h4>
+                    <p class="feature-desc">Data handled with enterprise-grade security. No personal data is stored permanently on our servers.</p>
+                </div>
+            </div>
+            <!-- Feature 6 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-card feature-card-pink">
+                    <div class="feature-icon feature-icon-pink"><i class="fas fa-file-pdf"></i></div>
+                    <h4 class="feature-title">Detailed Reports</h4>
+                    <p class="feature-desc">Generate professional PDF credit assessment reports for documentation and regulatory compliance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     HOW IT WORKS SECTION
+     ============================================================ -->
+<section class="how-section py-5" id="how-it-works">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <!-- Left: Steps -->
+            <div class="col-lg-6">
+                <div data-aos="fade-right">
+                    <div class="section-badge mb-3">
+                        <i class="fas fa-clock me-2"></i>Instant Process
+                    </div>
+                    <h2 class="section-title text-start mb-3">How It Works</h2>
+                    <p class="section-subtitle text-start mb-5">Our streamlined 4-step process transforms complex financial data into actionable credit insights in seconds.</p>
+                </div>
+
+                <!-- Steps Timeline -->
+                <div class="steps-timeline">
+                    <div class="step-item" data-aos="fade-right" data-aos-delay="100">
+                        <div class="step-icon-wrap">
+                            <div class="step-icon"><i class="fas fa-database"></i></div>
+                            <div class="step-connector"></div>
+                        </div>
+                        <div class="step-content">
+                            <span class="step-number">Step 1</span>
+                            <h5 class="step-title">Enter Financial Information</h5>
+                            <p class="step-desc">Fill in the assessment form with your personal and financial details including income, loan amount, credit history, and more.</p>
+                        </div>
+                    </div>
+                    <div class="step-item" data-aos="fade-right" data-aos-delay="200">
+                        <div class="step-icon-wrap">
+                            <div class="step-icon"><i class="fas fa-brain"></i></div>
+                            <div class="step-connector"></div>
+                        </div>
+                        <div class="step-content">
+                            <span class="step-number">Step 2</span>
+                            <h5 class="step-title">AI Evaluates Risk</h5>
+                            <p class="step-desc">Our trained Random Forest model processes your data through a preprocessing pipeline and generates probability scores.</p>
+                        </div>
+                    </div>
+                    <div class="step-item" data-aos="fade-right" data-aos-delay="300">
+                        <div class="step-icon-wrap">
+                            <div class="step-icon"><i class="fas fa-bullseye"></i></div>
+                            <div class="step-connector"></div>
+                        </div>
+                        <div class="step-content">
+                            <span class="step-number">Step 3</span>
+                            <h5 class="step-title">Get Credit Assessment</h5>
+                            <p class="step-desc">Receive an instant prediction — Creditworthy or High Risk — with detailed approval and rejection probabilities.</p>
+                        </div>
+                    </div>
+                    <div class="step-item" data-aos="fade-right" data-aos-delay="400">
+                        <div class="step-icon-wrap">
+                            <div class="step-icon"><i class="fas fa-file-download"></i></div>
+                        </div>
+                        <div class="step-content">
+                            <span class="step-number">Step 4</span>
+                            <h5 class="step-title">Download Report</h5>
+                            <p class="step-desc">Download a professional PDF report of the credit assessment for records or further review and compliance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Sample Result Card -->
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                <div class="sample-result-card">
+                    <h5 class="sample-title mb-4">Sample Assessment Result</h5>
+
+                    <!-- Approved Badge -->
+                    <div class="result-badge result-badge-approved">
+                        <div class="result-badge-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <div class="result-badge-label">Creditworthy</div>
+                            <div class="result-badge-sublabel">Recommended for approval</div>
+                        </div>
+                    </div>
+
+                    <!-- Probability Bars -->
+                    <div class="mt-4">
+                        <div class="prob-row">
+                            <div class="prob-label">
+                                <i class="fas fa-trending-up text-success-color me-2"></i>Approval Probability
+                            </div>
+                            <span class="prob-value text-success-color">87.3%</span>
+                        </div>
+                        <div class="prob-bar-track">
+                            <div class="prob-bar-fill prob-bar-success" style="width: 0%" data-width="87.3"></div>
+                        </div>
+
+                        <div class="prob-row mt-3">
+                            <div class="prob-label">
+                                <i class="fas fa-trending-down text-danger-color me-2"></i>Rejection Probability
+                            </div>
+                            <span class="prob-value text-danger-color">12.7%</span>
+                        </div>
+                        <div class="prob-bar-track">
+                            <div class="prob-bar-fill prob-bar-danger" style="width: 0%" data-width="12.7"></div>
+                        </div>
+                    </div>
+
+                    <a href="{{ url_for('predict') }}" class="btn-hero-primary w-100 mt-4 text-center">
+                        <i class="fas fa-rocket me-2"></i>Try Your Assessment
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     CTA SECTION
+     ============================================================ -->
+<section class="cta-section py-5">
+    <div class="container">
+        <div class="cta-card" data-aos="fade-up">
+            <div class="cta-orb cta-orb-1"></div>
+            <div class="cta-orb cta-orb-2"></div>
+            <div class="cta-icon-wrap mx-auto mb-4">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h2 class="cta-title">Ready to Assess Credit Risk?</h2>
+            <p class="cta-subtitle">
+                Use our AI-powered system to instantly evaluate loan applicant creditworthiness with industry-leading accuracy.
+            </p>
+            <a href="{{ url_for('predict') }}" class="btn-hero-primary btn-cta-lg">
+                <i class="fas fa-rocket me-2"></i>Start Free Assessment
+                <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script id="home-metrics-json" type="application/json">{{ metrics | tojson | safe }}</script>
+<script>
+    // Pass Flask metrics to JS safely
+    const modelMetrics = JSON.parse(document.getElementById('home-metrics-json').textContent || '{}');
+    initHomeCharts(modelMetrics);
+    animateCounters();
+    animateProgressBars();
+</script>
+{% endblock %}

@@ -1,0 +1,356 @@
+{% extends "base.html" %}
+
+{% block title %}About — FinScoreAI{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     ABOUT HERO
+     ============================================================ -->
+<section class="about-hero pt-page pb-5">
+    <div class="container text-center">
+        <div data-aos="fade-up">
+            <div class="section-badge mb-4">
+                <i class="fas fa-brain me-2"></i>About FinScoreAI
+            </div>
+            <h1 class="about-hero-title">
+                Intelligent Credit<br>
+                <span class="gradient-text">Scoring System</span>
+            </h1>
+            <p class="about-hero-desc">
+                FinScoreAI is an AI-powered financial risk assessment system developed as a web application.
+                It uses machine learning to evaluate loan applicant creditworthiness with high accuracy and transparency.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     WHAT IS CREDIT SCORING
+     ============================================================ -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Understanding Credit Scoring</h2>
+            <p class="section-subtitle">The science behind credit risk evaluation and AI-powered financial decision making</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="info-card info-card-accent">
+                    <div class="ic-icon"><i class="fas fa-bullseye"></i></div>
+                    <h5 class="ic-title">What is Credit Scoring?</h5>
+                    <p class="ic-desc">Credit scoring is a statistical method used by lenders to assess the creditworthiness of loan applicants. It quantifies the risk of default using historical financial data, producing a score that predicts the likelihood of repayment.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="info-card info-card-purple">
+                    <div class="ic-icon" style="background: rgba(168,85,247,0.15); color: #A855F7"><i class="fas fa-brain"></i></div>
+                    <h5 class="ic-title">How ML Helps</h5>
+                    <p class="ic-desc">Machine learning models learn patterns from thousands of historical loan records. Unlike traditional methods, ML can capture non-linear relationships between features — identifying complex risk patterns humans might miss.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-card info-card-success">
+                    <div class="ic-icon" style="background: rgba(34,197,94,0.15); color: #22C55E"><i class="fas fa-chart-bar"></i></div>
+                    <h5 class="ic-title">Why It Matters</h5>
+                    <p class="ic-desc">Accurate credit scoring reduces loan default rates, enables fair lending decisions, speeds up approval processes, and helps financial institutions manage portfolio risk while serving more customers effectively.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     ALGORITHMS
+     ============================================================ -->
+<section class="py-5 section-alt">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">ML Algorithms Used</h2>
+            <p class="section-subtitle">Three powerful classification algorithms evaluated for optimal credit risk prediction</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="algo-card">
+                    <div class="algo-header">
+                        <div>
+                            <h5 class="algo-name">Logistic Regression</h5>
+                            <span class="algo-badge" style="background: rgba(56,189,248,0.1); color: #38BDF8">Linear Classifier</span>
+                        </div>
+                        <div class="algo-icon" style="background: rgba(56,189,248,0.1); color: #38BDF8">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                    </div>
+                    <p class="algo-desc">A baseline linear model that predicts the probability of credit default using a logistic function. Fast, interpretable, and effective for linearly separable data.</p>
+                    <ul class="algo-pros">
+                        <li><i class="fas fa-check text-accent me-2"></i>Highly interpretable results</li>
+                        <li><i class="fas fa-check text-accent me-2"></i>Fast training & prediction</li>
+                        <li><i class="fas fa-check text-accent me-2"></i>Probability output</li>
+                        <li><i class="fas fa-check text-accent me-2"></i>Good baseline model</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="algo-card">
+                    <div class="algo-header">
+                        <div>
+                            <h5 class="algo-name">Decision Tree</h5>
+                            <span class="algo-badge" style="background: rgba(245,158,11,0.1); color: #F59E0B">Tree-Based Classifier</span>
+                        </div>
+                        <div class="algo-icon" style="background: rgba(245,158,11,0.1); color: #F59E0B">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                    </div>
+                    <p class="algo-desc">A rule-based model that splits data on feature thresholds to classify applicants. Creates an intuitive decision path that mirrors human loan officer reasoning.</p>
+                    <ul class="algo-pros">
+                        <li><i class="fas fa-check text-warning me-2"></i>Visual decision paths</li>
+                        <li><i class="fas fa-check text-warning me-2"></i>Handles non-linear data</li>
+                        <li><i class="fas fa-check text-warning me-2"></i>No feature scaling needed</li>
+                        <li><i class="fas fa-check text-warning me-2"></i>Excellent interpretability</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="algo-card algo-card-featured">
+                    <div class="algo-star-badge">★ Final Model</div>
+                    <div class="algo-header">
+                        <div>
+                            <h5 class="algo-name">Random Forest</h5>
+                            <span class="algo-badge" style="background: rgba(34,197,94,0.1); color: #22C55E">Ensemble Classifier</span>
+                        </div>
+                        <div class="algo-icon" style="background: rgba(34,197,94,0.1); color: #22C55E">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                    </div>
+                    <p class="algo-desc">An ensemble of 200 decision trees trained on random data subsets. Reduces overfitting through bagging and delivers superior accuracy — chosen as the final model for FinScoreAI.</p>
+                    <ul class="algo-pros">
+                        <li><i class="fas fa-check text-success-color me-2"></i>Highest accuracy (93.47%)</li>
+                        <li><i class="fas fa-check text-success-color me-2"></i>Robust to overfitting</li>
+                        <li><i class="fas fa-check text-success-color me-2"></i>Feature importance ranking</li>
+                        <li><i class="fas fa-check text-success-color me-2"></i>Handles imbalanced data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="algo-note mt-4" data-aos="fade-up">
+            ★ Random Forest was selected as the final model — n_estimators=200, max_depth=15, random_state=42
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     EVALUATION METRICS
+     ============================================================ -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Evaluation Metrics</h2>
+            <p class="section-subtitle">Comprehensive performance evaluation using industry-standard classification metrics</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="eval-metric-card">
+                    <div class="eval-metric-name text-accent">Accuracy</div>
+                    <p class="eval-metric-desc">Overall proportion of correctly classified applicants out of all predictions.</p>
+                    <code class="eval-formula">(TP + TN) / (TP + TN + FP + FN)</code>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="eval-metric-card">
+                    <div class="eval-metric-name text-purple">Precision</div>
+                    <p class="eval-metric-desc">Of all applicants predicted creditworthy, what fraction were actually creditworthy?</p>
+                    <code class="eval-formula">TP / (TP + FP)</code>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="eval-metric-card">
+                    <div class="eval-metric-name text-warning">Recall</div>
+                    <p class="eval-metric-desc">Of all truly creditworthy applicants, what fraction did the model correctly identify?</p>
+                    <code class="eval-formula">TP / (TP + FN)</code>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="eval-metric-card">
+                    <div class="eval-metric-name text-pink">F1 Score</div>
+                    <p class="eval-metric-desc">The harmonic mean of Precision and Recall — balances both metrics for imbalanced datasets.</p>
+                    <code class="eval-formula">2 × (P × R) / (P + R)</code>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="eval-metric-card">
+                    <div class="eval-metric-name text-success-color">ROC-AUC</div>
+                    <p class="eval-metric-desc">Area under the ROC curve — measures the model's ability to distinguish between classes.</p>
+                    <code class="eval-formula">Area Under ROC Curve (0–1)</code>
+                </div>
+            </div>
+            <!-- Our Scores -->
+            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="eval-metric-card eval-metric-scores">
+                    <h6 class="eval-scores-title">Our Model Scores</h6>
+                    <div class="eval-score-row"><span>Accuracy</span><span class="text-accent">93.47%</span></div>
+                    <div class="eval-score-row"><span>Precision</span><span class="text-purple">91.82%</span></div>
+                    <div class="eval-score-row"><span>Recall</span><span class="text-warning">89.65%</span></div>
+                    <div class="eval-score-row"><span>F1 Score</span><span class="text-pink">90.72%</span></div>
+                    <div class="eval-score-row"><span>ROC-AUC</span><span class="text-success-color">97.34%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     TECHNOLOGY STACK
+     ============================================================ -->
+<section class="py-5 section-alt">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Technology Stack</h2>
+            <p class="section-subtitle">Built with modern Python and web technologies for a production-ready ML application</p>
+        </div>
+
+        <div class="row g-4">
+            {% set tech_stacks = [
+                ('Backend', 'fa-flask', '#38BDF8', [('Flask', '3.1.1'), ('Python', '3.11+'), ('Gunicorn', '23.0.0')]),
+                ('Machine Learning', 'fa-brain', '#A855F7', [('scikit-learn', '1.7.0'), ('pandas', '2.3.0'), ('numpy', '2.3.1'), ('joblib', '1.5.1')]),
+                ('Frontend', 'fa-code', '#EC4899', [('HTML5 / CSS3', 'Modern'), ('Bootstrap 5', '5.x'), ('JavaScript', 'ES2022'), ('Font Awesome', '6.x')]),
+                ('Data & Pipeline', 'fa-database', '#22C55E', [('StandardScaler', 'Preprocessing'), ('OneHotEncoder', 'Encoding'), ('ColumnTransformer', 'Pipeline'), ('CSV Dataset', '13 Features')]),
+                ('Report Generation', 'fa-file-code', '#F59E0B', [('ReportLab', '4.4.2'), ('PDF Export', 'Formatted'), ('JSON Metrics', 'Persisted')]),
+                ('Model Config', 'fa-microchip', '#38BDF8', [('n_estimators', '200 Trees'), ('max_depth', '15'), ('test_size', '20%'), ('random_state', '42')]),
+            ] %}
+
+            {% for name, icon, color, items in tech_stacks %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="tech-stack-card">
+                    <div class="tsc-header">
+                        <i class="fas {{ icon }} me-2" style="color: {{ color }}"></i>
+                        <h5 class="tsc-title">{{ name }}</h5>
+                    </div>
+                    {% for item_name, item_ver in items %}
+                    <div class="tech-badge">
+                        <div class="tech-badge-dot" style="background: {{ color }}"></div>
+                        <span class="tech-badge-name">{{ item_name }}</span>
+                        <span class="tech-badge-ver">{{ item_ver }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     FUTURE IMPROVEMENTS
+     ============================================================ -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Future Improvements</h2>
+            <p class="section-subtitle">Planned enhancements to make FinScoreAI even more powerful and accurate</p>
+        </div>
+
+        <div class="row g-3">
+            {% set improvements = [
+                ('fa-bolt', '#38BDF8', 'XGBoost & LightGBM', 'Integrate gradient boosting models for potentially higher accuracy and faster inference.'),
+                ('fa-layer-group', '#A855F7', 'Deep Learning', 'Experiment with neural networks (LSTM, Transformer) for complex pattern recognition.'),
+                ('fa-chart-area', '#22C55E', 'SHAP Explainability', 'Add SHAP value visualization to explain each prediction — improving trust and transparency.'),
+                ('fa-database', '#F59E0B', 'Real-time Database', 'Integrate PostgreSQL to store applicant data, track predictions, and enable audit trails.'),
+                ('fa-plug', '#EC4899', 'API Endpoints', 'Build RESTful API for third-party integrations with banking systems and fintech platforms.'),
+                ('fa-star', '#EF4444', 'Multi-Model Ensemble', 'Combine multiple models (RF + XGBoost + LR) using voting classifier for improved robustness.'),
+            ] %}
+
+            {% for icon, color, title, desc in improvements %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="future-card">
+                    <div class="future-icon" style="background: {{ color }}15; color: {{ color }}">
+                        <i class="fas {{ icon }}"></i>
+                    </div>
+                    <div>
+                        <h6 class="future-title">{{ title }}</h6>
+                        <p class="future-desc">{{ desc }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     DEVELOPER / CREATOR SECTION
+     ============================================================ -->
+<section class="py-5 section-alt">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Meet the Developer</h2>
+            <p class="section-subtitle">The mind behind FinScoreAI — built with passion for ML and FinTech</p>
+        </div>
+
+        <div class="creator-card mx-auto" data-aos="fade-up">
+            <div class="creator-glow"></div>
+            <div class="text-center">
+                <!-- Avatar -->
+                <div class="creator-avatar-wrap">
+                    <div class="creator-avatar">MR</div>
+                    <div class="creator-avatar-badge"><i class="fas fa-check"></i></div>
+                </div>
+
+                <h3 class="creator-name">Mowshik G</h3>
+                <p class="creator-role">CSE(AI & ML) Student</p>
+                <div class="creator-intern-badge">
+                    <i class="fas fa-brain me-2"></i>KPRIET-Coimbatore<br>
+                </div>
+
+                <p class="creator-bio mt-4">
+                    Passionate about building intelligent systems that solve real-world financial problems. FinScoreAI was
+                    developed as part of the Machine Learning career path, combining ML expertise with modern web
+                    development to create a production-ready credit scoring system.
+                </p>
+
+                <!-- Social Links -->
+                <div class="creator-socials">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharshanmowshik@gmail.com"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="creator-social-btn creator-gmail">
+
+                       <i class="fas fa-envelope me-2"></i>Gmail
+                    </a>
+                    <a href="https://github.com/Mowshik1210" target="_blank" rel="noopener noreferrer" class="creator-social-btn creator-github" title="GitHub">
+                        <i class="fab fa-github me-2"></i>GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/mowshik-g" target="_blank" rel="noopener noreferrer" class="creator-social-btn creator-linkedin" title="LinkedIn">
+                        <i class="fab fa-linkedin me-2"></i>LinkedIn
+                    </a>
+                </div>
+
+                <div class="creator-footer mt-4">
+                    Designed & Developed with <i class="fas fa-heart text-danger mx-1"></i> by
+                    <strong>Mowshik G</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-5">
+            <a href="{{ url_for('predict') }}" class="btn-hero-primary btn-cta-lg">
+                <i class="fas fa-rocket me-2"></i>Try the Assessment
+                <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

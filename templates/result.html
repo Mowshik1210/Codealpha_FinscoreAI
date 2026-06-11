@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}Assessment Result — FinScoreAI{% endblock %}
+
+{% block content %}
+
+{% set is_creditworthy = (result.prediction == 0) %}
+
+<section class="result-section py-5 pt-page">
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <div class="section-badge mb-3 {% if is_creditworthy %}badge-success-color{% else %}badge-danger-color{% endif %}">
+                <i class="fas fa-{% if is_creditworthy%}shield-check{% else %}shield-exclamation{% endif %} me-2"></i>
+                Assessment Complete
+        </div>
+
+        <!-- Main Result Card -->
+        <div class="result-main-card {% if is_creditworthy %}result-approved{% else %}result-rejected{% endif %} mb-4" data-aos="fade-up">
+            <div class="result-glow"></div>
+            <div class="row align-items-center g-4">
+                <!-- Icon + Label -->
+                <div class="col-lg-3 text-center">
+                    <div class="result-icon-wrap {% if is_creditworthy %}result-icon-approved{% else %}result-icon-rejected{% endif %}">
+                        <i class="fas fa-{% if is_creditworthy %}check-circle{% else %}times-circle{% endif %}"></i>
+                    </div>
+                    <div class="result-label {% if is_creditworthy %}text-success-color{% else %}text-danger-color{% endif %}">
+                        {% if is_creditworthy %}Creditworthy{% else %}High Risk{% endif %}
+                    </div>
+                    <div class="result-sublabel">
+                        {% if is_creditworthy %}Recommended for Approval{% else %}Not Recommended for Approval{% endif %}
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="col-lg-1 d-none d-lg-flex justify-content-center">
+                    <div class="result-divider-v"></div>
+                </div>
+
+                <!-- Gauge -->
+                <div class="col-lg-4">
+                    <div class="gauge-wrapper">
+                        <canvas id="gaugeChart" width="260" height="160"
+                            data-approval="{{ result.approval_probability }}"
+                            data-rejection="{{ result.rejection_probability }}"
+                            data-approved="{{ 'true' if is_creditworthy else 'false' }}"></canvas>
+                        <div class="gauge-value {% if is_creditworthy %}text-success-color{% else %}text-danger-color{% endif %}">
+                            {% if is_creditworthy %}{{ result.approval_probability }}{% else %}{{ result.rejection_probability }}{% endif %}%
+                        </div>
+                        <div class="gauge-label">Probability</div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="col-lg-1 d-none d-lg-flex justify-content-center">
+                    <div class="result-divider-v"></div>
+                </div>
+
+                <!-- Probability Bars -->
+                <div class="col-lg-3">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="prob-label-sm">
+                                <i class="fas fa-trending-up text-success-color me-2"></i>Approval Probability
+                            </span>
+                            <span class="prob-value-sm text-success-color">{{ result.approval_probability }}%</span>
+                        </div>
+                        <div class="prob-bar-track">
+                            <div class="prob-bar-fill prob-bar-success" style="width: 0%" data-width="{{ result.approval_probability }}"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="prob-label-sm">
+                                <i class="fas fa-trending-down text-danger-color me-2"></i>Rejection Probability
+                            </span>
+                            <span class="prob-value-sm text-danger-color">{{ result.rejection_probability }}%</span>
+                        </div>
+                        <div class="prob-bar-track">
+                            <div class="prob-bar-fill prob-bar-danger" style="width: 0%" data-width="{{ result.rejection_probability }}"></div>
+                        </div>
+                    </div>
+                    <div class="model-confidence-badge mt-3">
+                        <i class="fas fa-microchip me-2 text-accent"></i>
+                        <span>200-tree Random Forest | 93.47% Accuracy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row: Summary + Risk + Recommendations -->
+        <div class="row g-4 mb-4">
+            <!-- Applicant Summary -->
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="result-detail-card h-100">
+                    <h5 class="detail-card-title">
+                        <i class="fas fa-user me-2 text-accent"></i>Applicant Summary
+                    </h5>
+                    <div class="summary-list">
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-calendar-alt me-2"></i>Age</span>
+                            <span class="sli-value">{{ request.form.person_age }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-venus-mars me-2"></i>Gender</span>
+                            <span class="sli-value">{{ request.form.person_gender | title }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-graduation-cap me-2"></i>Education</span>
+                            <span class="sli-value">{{ request.form.person_education }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-dollar-sign me-2"></i>Annual Income</span>
+                            <span class="sli-value">${{ '{:,.0f}'.format(request.form.person_income | float) }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-briefcase me-2"></i>Employment Exp.</span>
+                            <span class="sli-value">{{ request.form.person_emp_exp }} years</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-home me-2"></i>Home Ownership</span>
+                            <span class="sli-value">{{ request.form.person_home_ownership }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-dollar-sign me-2"></i>Loan Amount</span>
+                            <span class="sli-value">${{ '{:,.0f}'.format(request.form.loan_amnt | float) }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-tags me-2"></i>Loan Purpose</span>
+                            <span class="sli-value">{{ request.form.loan_intent }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-percent me-2"></i>Interest Rate</span>
+                            <span class="sli-value">{{ request.form.loan_int_rate }}%</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-star me-2"></i>Credit Score</span>
+                            <span class="sli-value">{{ request.form.credit_score }}</span>
+                        </div>
+                        <div class="summary-list-item">
+                            <span class="sli-label"><i class="fas fa-exclamation-triangle me-2"></i>Prior Defaults</span>
+                            <span class="sli-value {{ 'text-danger-color' if request.form.previous_loan_defaults_on_file == 'Yes' else 'text-success-color' }}">
+                                {{ request.form.previous_loan_defaults_on_file }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk + Recommendations -->
+            <div class="col-lg-6" data-aos="fade-left">
+                <!-- Risk Level -->
+                <div class="result-detail-card mb-4">
+                    <h5 class="detail-card-title">
+                        <i class="fas fa-tachometer-alt me-2 text-accent"></i>Risk Assessment
+                    </h5>
+                    <div class="risk-level-row">
+                        <span class="risk-label">Risk Level</span>
+                        <span class="risk-value {% if result.rejection_probability < 20 %}text-success-color{% elif result.rejection_probability < 60 %}text-warning{% else %}text-danger-color{% endif %}">
+                            {% if result.rejection_probability < 20 %}Very Low
+                            {% elif result.rejection_probability < 40 %}Low
+                            {% elif result.rejection_probability < 60 %}Medium
+                            {% elif result.rejection_probability < 80 %}High
+                            {% else %}Very High{% endif %}
+                        </span>
+                    </div>
+                    <div class="risk-bar-track">
+                        <div class="risk-bar-fill" style="width: 0%" data-width="{{ result.rejection_probability }}"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <span class="text-success-color" style="font-size: 0.7rem;">Low</span>
+                        <span class="text-danger-color" style="font-size: 0.7rem;">High</span>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="result-detail-card">
+                    <h5 class="detail-card-title">
+                        {% if is_creditworthy %}
+                        <i class="fas fa-check-circle me-2 text-success-color"></i>Recommendations
+                        {% else %}
+                        <i class="fas fa-exclamation-triangle me-2 text-warning"></i>Recommendations
+                        {% endif %}
+                    </h5>
+                    <ul class="recommendations-list">
+                        {% if is_creditworthy %}
+                        <li><i class="fas fa-check text-success-color me-2"></i>Creditworthy profile detected — eligible for loan approval</li>
+                        <li><i class="fas fa-check text-success-color me-2"></i>Maintain your current credit score for future benefits</li>
+                        <li><i class="fas fa-check text-success-color me-2"></i>Consider setting up automatic payments to stay on track</li>
+                        <li><i class="fas fa-check text-success-color me-2"></i>Review loan terms carefully before signing</li>
+                        {% else %}
+                        <li><i class="fas fa-times text-danger-color me-2"></i>High credit risk detected — loan approval not recommended</li>
+                        <li><i class="fas fa-sync text-warning me-2"></i>Improve credit score by paying outstanding debts</li>
+                        <li><i class="fas fa-lightbulb text-accent me-2"></i>Consider reducing the loan amount requested</li>
+                        <li><i class="fas fa-chart-line text-accent me-2"></i>Build employment history to strengthen future applications</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="result-actions text-center" data-aos="fade-up">
+            <a href="{{ url_for('predict') }}" class="btn-action btn-action-outline">
+                <i class="fas fa-redo me-2"></i>New Assessment
+            </a>
+            <a href="{{ url_for('download_report') }}" class="btn-action btn-action-primary">
+                <i class="fas fa-file-download me-2"></i>Download PDF Report
+            </a>
+            <a href="{{ url_for('home') }}" class="btn-action btn-action-outline">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+            </a>
+        </div>
+
+        <!-- Disclaimer -->
+        <p class="result-disclaimer text-center mt-4" data-aos="fade-up">
+            ⚠️ This is an AI-generated assessment for educational purposes. Not financial advice.
+            Results are based on ML model predictions with <strong>93.47% accuracy</strong>.
+        </p>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animate probability bars
+    animateProgressBars();
+
+    // Risk bar
+    const riskBar = document.querySelector('.risk-bar-fill');
+    if (riskBar) {
+        setTimeout(() => { riskBar.style.width = riskBar.dataset.width + '%'; }, 300);
+        riskBar.style.background = 'linear-gradient(to right, #22C55E, #F59E0B, #EF4444)';
+    }
+
+    // Gauge Chart
+    const ctx = document.getElementById('gaugeChart');
+
+    if (ctx) {
+        const approvalProb = Number(ctx.dataset.approval) || 0;
+        const rejectionProb = Number(ctx.dataset.rejection) || 0;
+        const isApproved = ctx.dataset.approved === 'true';
+        const gaugeValue = isApproved ? approvalProb : rejectionProb;
+        const gaugeColor = isApproved ? '#22C55E' : '#EF4444';
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [gaugeValue, 100 - gaugeValue],
+                    backgroundColor: [gaugeColor, 'rgba(255,255,255,0.05)'],
+                    borderWidth: 0,
+                    circumference: 180,
+                    rotation: 270,
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                cutout: '75%',
+                animation: { animateRotate: true, duration: 1500 }
+            }
+        });
+    }
+</script>
+{% endblock %}

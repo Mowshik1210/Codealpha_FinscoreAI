@@ -6,8 +6,6 @@ __pycache__/
 venv/
 env/
 
-models/*.pkl
-
 .DS_Store
 Thumbs.db
 

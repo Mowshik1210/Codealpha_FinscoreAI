@@ -19,6 +19,10 @@ Predict loan approval and creditworthiness using Machine Learning, financial ind
 
 ---
 
+# 🌐 Live Link : https://finscoreai.up.railway.app/
+
+---
+
 # 📌 Project Overview
 
 FinScoreAI is an AI-powered financial prediction system that analyzes customer information and predicts whether a loan application is likely to be approved or rejected.

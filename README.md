@@ -64,24 +64,29 @@ The project demonstrates how Artificial Intelligence can assist banks, fintech c
 
 ## Home Page
 
-Add screenshot here:
+![](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(122).png?raw=true)
 
 ```markdown
-![Home](screenshots/home.png)
+![Home](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(123).png?raw=true)
 ```
 
 ## Prediction Page
 
 ```markdown
-![Prediction](screenshots/predict.png)
+![Prediction](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(125).png?raw=true)
 ```
 
-## Results Page
+## Developer Page
 
 ```markdown
-![Results](screenshots/result.png)
+![Results](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(126).png?raw=true)
 ```
 
+## Light Theme
+
+```markdown
+![Results](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(127).png?raw=true)
+```
 ---
 
 # 🌐 Live Link : https://finscoreai.up.railway.app/

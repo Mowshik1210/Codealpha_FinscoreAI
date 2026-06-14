@@ -7,6 +7,12 @@ from utils.predictor import predict_credit
 
 app = Flask(__name__)
 
+from flask import send_from_directory
+
+@app.route('/google123456789abcdef.html')
+def google_verify():
+    return send_from_directory('.', 'google123456789abcdef.html')
+
 @app.route("/")
 def home():
 

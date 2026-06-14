@@ -66,27 +66,20 @@ The project demonstrates how Artificial Intelligence can assist banks, fintech c
 
 ![](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(122).png?raw=true)
 
-```markdown
-![Home](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(123).png?raw=true)
-```
+![](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(123).png?raw=true)
 
 ## Prediction Page
 
-```markdown
-![Prediction](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(125).png?raw=true)
-```
+![](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(125).png?raw=true)
 
 ## Developer Page
 
-```markdown
-![Results](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(126).png?raw=true)
-```
+![](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(126).png?raw=true)
 
 ## Light Theme
 
-```markdown
-![Results](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(127).png?raw=true)
-```
+![](https://github.com/Mowshik1210/Codealpha_FinscoreAI/blob/main/static/images/Screenshot%20(127).png?raw=true)
+
 ---
 
 # 🌐 Live Link : https://finscoreai.up.railway.app/

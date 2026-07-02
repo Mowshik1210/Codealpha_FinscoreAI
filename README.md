@@ -8,10 +8,10 @@
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)]
 [![Flask](https://img.shields.io/badge/Flask-Web%20App-black?style=for-the-badge&logo=flask)]
-[![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange?style=for-the-badge&logo=scikit-learn)]
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)]
+[![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-ML-blue?style=for-the-badge&logo=scikit-learn)]
+[![License](https://img.shields.io/badge/License-MIT-blur?style=for-the-badge)]
 
-### 🚀 CodeAlpha Internship Project
+### 🚀 Focus
 
 Predict loan approval and creditworthiness using Machine Learning, financial indicators, and real-time user inputs.
 

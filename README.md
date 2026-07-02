@@ -1,15 +1,33 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=gradient&text=💳%20FinScoreAI&fontSize=45&fontAlignY=40&desc=AI-Powered%20Credit%20Score%20Prediction%20System&descAlignY=65" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0F52BA,50:1E90FF,100:00BFFF&height=230&section=header&text=💳%20FinScoreAI&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=AI-Powered%20Credit%20Risk%20Assessment%20System&descAlignY=62&descSize=20" width="100%"/>
 
 # 💳 FinScoreAI
 
-### Intelligent Credit Risk Assessment using Machine Learning
+### 🚀 Intelligent Credit Risk Assessment using Machine Learning
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)]
-[![Flask](https://img.shields.io/badge/Flask-Web%20App-black?style=for-the-badge&logo=flask)]
-[![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-ML-blue?style=for-the-badge&logo=scikit-learn)]
-[![License](https://img.shields.io/badge/License-MIT-blur?style=for-the-badge)]
+<p align="center">
+
+<a href="#">
+<img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+</a>
+
+<a href="#">
+<img src="https://img.shields.io/badge/Flask-Web%20Application-1E90FF?style=for-the-badge&logo=flask&logoColor=white"/>
+</a>
+
+<a href="#">
+<img src="https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-0A66C2?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
+</a>
+
+<a href="#">
+<img src="https://img.shields.io/badge/License-MIT-0052CC?style=for-the-badge"/>
+</a>
+
+</p>
+
+<p align="center">
+
 
 ### 🚀 Focus
 
@@ -288,11 +306,10 @@ KPR Institute of Engineering and Technology
 - LinkedIn: https://linkedin.com/in/mowshik-g/
 
 ---
+⭐ AI Powered • 📊 Credit Risk Prediction • 🚀 Flask Web App • 🤖 Machine Learning
 
-<div align="center">
+</p>
 
-### ⭐ If you like this project, give it a star!
-
-<img src="https://capsule-render.vercel.app/api?type=waving&height=120&section=footer&color=gradient"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00BFFF,50:1E90FF,100:0F52BA&height=140&section=footer&fontColor=ffffff"/>
 
 </div>
